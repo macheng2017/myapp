@@ -1,0 +1,20 @@
+
+    <div id="app">
+
+        <h1><%= post.title %></h1>
+        <div><%- post.content %></div>
+
+        <!-- Split button -->
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default">操作 </button>
+            <button class="btn btn-secondary dropdown-toggle" type="button" 
+            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+              </button>
+            <ul class="dropdown-menu">
+                <li><a href="/posts/edit/<%= post._id %>">编辑</a></li>
+            </ul>
+        </div>
+
+    </div>

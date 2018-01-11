@@ -1,0 +1,1 @@
+module.exports = {cookieName:'hehehehehehe'} 

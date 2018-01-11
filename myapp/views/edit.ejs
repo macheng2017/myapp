@@ -1,0 +1,63 @@
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <div id="app">
+                        <h1><%=title%></h1>
+                    
+                        <div class="form-group">
+                            <input type="text"  class="form-control" v-model="title" placeholder="输入文字标题">                    
+                        </div>
+                        <div class="form-group">
+                            <textarea   cols="30" rows="3" class="form-group" v-model="content" placeholder="请输入内容"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-default" v-on:click="submit">提交</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+
+    <script>
+        var id = '<%=id%>';
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                title:"",
+                content:""
+            },
+             // redisplay data
+             created(){
+                    axios.get("/api/v1/posts/"+id)
+                    .then((response)=>{
+                        // redisplay data
+                        vm.title = response.data.post.title;
+                        vm.content = response.data.post.content;
+                    }).catch((err)=>{
+                        alert(err);
+                    });
+                },
+            methods:{
+                /* submit data */
+                submit(){
+                    axios.patch('/api/v1/posts/'+id,{
+                        //id:id,
+                        title:vm.title,
+                        content:vm.content
+                    }).then((response)=>{
+                       return response.data;
+                    }).then((data)=>{
+                        //提交完成后跳转到文章详情页面
+                        window.location = "/posts/show/"+id
+                    }).catch((err)=>{
+                        alert(err);
+                    });
+
+                }
+            }
+        });
+        //vm.getData();
+
+    </script>
+
