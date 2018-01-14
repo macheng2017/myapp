@@ -123,7 +123,8 @@ UserModel.findOne({name},(err,user)=>{
     if(!isOk){
         return next(new Error("密码不对"));
     }
-    var authToken = user.id;
+    // why this is _id ?
+    var authToken = user._id;
     //组装一个cookie  Constructs a cookie with a specified name and value
     var opts ={
         path:'/',
