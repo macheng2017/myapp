@@ -5,6 +5,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+/* import config.js file about cookie setup */
+var config = require('./config');
+/* 验证用户信息 */
+var auth = require("./middlewares/auth")
 /* draw out  ejs public module*/
 var expressLayouts = require('express-ejs-layouts');
 
@@ -27,7 +31,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use('/', index);
+/* modify */
+app.use(cookieParser(config.cookieName));
+/* 验证用户信息 */
+app.use(auth.authUser);
 app.use('/', page);
 app.use('/api/v1',api);
 // catch 404 and forward to error handler
