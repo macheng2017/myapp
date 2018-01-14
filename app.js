@@ -29,10 +29,10 @@ app.use(expressLayouts);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 /* modify */
 app.use(cookieParser(config.cookieName));
+app.use(express.static(path.join(__dirname, 'public')));
+
 /* 验证用户信息 */
 app.use(auth.authUser);
 app.use('/', page);

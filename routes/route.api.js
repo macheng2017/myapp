@@ -120,10 +120,10 @@ UserModel.findOne({name},(err,user)=>{
     return next(new Error("用户不存在"));
   }else{
     var isOk = bcrypt.compareSync(pass,user.pass);
-    if(!isOK){
+    if(!isOk){
         return next(new Error("密码不对"));
     }
-    var authToken = user._id;
+    var authToken = user.id;
     //组装一个cookie  Constructs a cookie with a specified name and value
     var opts ={
         path:'/',
@@ -134,8 +134,6 @@ UserModel.findOne({name},(err,user)=>{
     res.cookie(config.cookieName,authToken,opts);
     res.end();
   }
-})
-
-
+  });
 });
 module.exports = router;

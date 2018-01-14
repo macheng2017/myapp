@@ -6,7 +6,7 @@ function authUser(req,res,next){
     res.locals.currentUser = null;
 
     if (authToken) {
-        UserModel.findOne({_id:authToken},(req,user)=>{
+        UserModel.findOne({_id:authToken},(err,user)=>{
             if (err) {
                 next(); //why not is next(err)?
                 //because this is not handling error , this just function with auth
