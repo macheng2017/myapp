@@ -42,7 +42,7 @@
                            // element.name = '你好啊 '+element._id
                         });
                     }).catch((err)=>{
-                        alert(err);
+                        alert(err.response.data.error);
                     });
                 }
             }

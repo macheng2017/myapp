@@ -32,7 +32,8 @@
                 }).then((data)=>{
                     window.location='/';
                 }).catch((err)=>{
-                    alert(err);
+                    //直接弹出 error信息
+                    alert(err.response.data.error);
                 });
             }
         }

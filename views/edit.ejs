@@ -35,7 +35,7 @@
                         vm.title = response.data.post.title;
                         vm.content = response.data.post.content;
                     }).catch((err)=>{
-                        alert(err);
+                        alert(err.response.data.error);
                     });
                 },
             methods:{
@@ -51,7 +51,7 @@
                         //提交完成后跳转到文章详情页面
                         window.location = "/posts/show/"+id
                     }).catch((err)=>{
-                        alert(err);
+                        alert(err.response.data.error);
                     });
 
                 }
