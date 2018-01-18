@@ -5,10 +5,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+/* about session */
+var connectMongodb = require('express-session');
+var session = require('express-session');
 /* import config.js file about cookie setup */
 var config = require('./config');
 /* 验证用户信息 */
-var auth = require("./middlewares/auth")
+var auth = require("./middlewares/auth");
 /* draw out  ejs public module*/
 var expressLayouts = require('express-ejs-layouts');
 
@@ -18,6 +21,8 @@ var expressLayouts = require('express-ejs-layouts');
 //引入router 将route 分成两类 处理page的 还有处理数据的api
 var api = require('./routes/route.api');
 var page = require('./routes/route.page');
+/* set and use session */
+var MongoStore = new connectMongodb(session);
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +37,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 /* modify */
 app.use(cookieParser(config.cookieName));
 app.use(express.static(path.join(__dirname, 'public')));
+/* use session middleware */
+app.use(
+  session({
+    secret: config.sessionSecret,
+    store: new MongoStore({
+      url:config.mongodbUrl
+    }),
+    resave:true,
+    saveUninitialized: true
+  })
+);
 
 /* 验证用户信息 */
 app.use(auth.authUser);
